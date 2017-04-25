@@ -2,10 +2,10 @@
 date = "2017-04-24T16:45:12-07:00"
 title = "Secure private Docker registry on DC/OS"
 author = "Julian Neytchev"
-draft = true
+draft = false
 description = "Short guide on how to set up a private docker registry behind an internal marathon-lb instance all running on DC/OS"
-tags = ["DCOS","marathon-lb","docker","registry","SSL","TLS"]
-categories = ["Distributed Computing"]
+tags = ["dcos","marathon-lb","docker","registry","ssl","tls"]
+categories = ["distributed-computing"]
 +++
 
 This is a short guide on how to set up a private docker registry behind an internal marathon-lb instance all running on DC/OS. Since marathon-lb is a Layer 7 load balancer we will use it to terminate SSL for our private registry and avoid using it in insecure mode. We will use self-signed TLS certificates for that purpose.
@@ -18,15 +18,16 @@ This is a short guide on how to set up a private docker registry behind an inter
 ### Planning
 + We want to offer private docker registry to all users of our DC/OS cluster. 
 + We will use self signed certificates to secure the communications with the registry. 
-+ We will make use of marathon-lb's ability to terminate SSL
++ We will make use of marathon-lb's ability to terminate SSL.
 + We will deploy the internal marathon-lb in a group called "shared" for better separation of services.
-+ The internal marathon-lb URL address will be `mlbint.shared.marathon.mesos`
++ The internal marathon-lb URL address will be `mlbint.shared.marathon.mesos`.
 + We will offer the private registry on port 10050 of the above URL.
 + (Optional) Storage for our private registry is going to be on an NFS mount.
 
-### Generating self signed keys
-The following script snippet will generate a self-signed TLS keys you can use to terminate SSL with.
-The most important part of it is setting the correct repo URL as the CN (Common Name) for your TLS key. You must use the exact URL where you will be offering the SSL termination or it will not work.
+### Generating self signed key
+The following script snippet will generate a self-signed TLS key with which you can  terminate SSL.
+The most important part of the key generation is setting the correct repo URL as the CN (Common Name) for your TLS key. You must use the exact URL where you will be offering the SSL termination or it will not work.
+
 In our case, since we are terminating at our internal marathon-lb the CN is going to be the same as the marathon-lb URL.
 For simplicty, run this snippet in you home directory on the bootstrap server:
 
@@ -43,8 +44,8 @@ cat domain.crt domain.key | tee registry.pem
 
 Note: the length of you common name (CN) must be less than 64 characters.
 
-### Making the self-signed keys available to the nodes in the cluster
-Start a web server in a location accessible to all nodes in you DC/OS cluster and place the key, crt and pem files under the web root or any other directory, so they are accessible via simple `wget` or `curl -O` command.
+### Making the self-signed key available to the nodes in the cluster
+Start a web server in a location accessible to all nodes in your DC/OS cluster and place the key, crt, and pem files under the web root, so they are accessible via simple `wget` or `curl -O` command.
 Your bootstrap node is a perfect candidate for that location:
 
 ``` bash
@@ -52,17 +53,17 @@ WEB_PORT=8085
 WEB_DIR=${HOME}/webserver
 mkdir -p ${WEB_DIR}
 # Copy domain.crt, domain.key, registry.pem to ~/webserver 
-# in the previous step we generated them in the HOME directory of the bootstrap server so lets move them to the web server directory
+# in the previous step we generated them in the HOME directory of the bootstrap server so let's move them to the web server directory
 cd ${HOME}
 mv domain.crt domain.key registry.pem ${WEB_DIR}
 pushd ${WEB_DIR}
 python -m SimpleHTTPServer ${WEB_PORT} &> /dev/null &
 popd
 ```
-Verification: you should be able to issue wget http://<ip-of-bootstrap>:8085/domain.crt from any node and be able to download the file in question.
+Verification: issuing wget http://<ip-of-bootstrap>:8085/domain.crt from any node should download the file locally.
 
-### Distribute self signed keys to all nodes in your cluster
-The self signed TLS keys need to be placed in specific directories on all of your private nodes. This script can do the job for you:
+### Distribute self signed key to all nodes in your cluster
+The self signed TLS key needs to be placed in specific directories on all of your private nodes. This script can do the job for you:
 
 ``` bash
 DOMAIN_NAME=mlbint.shared.marathon.mesos
@@ -91,9 +92,9 @@ sudo systemctl restart docker
 ```
 
 ### Installing internal Marathon-LB instance
-If you are running the enterprise version of DC/OS you should create service account for your marathon-lb instance to work correctly.
+If you are running the enterprise version of DC/OS you should create a service account for your marathon-lb instance to work correctly.
 
-Create a configuration file on your machine (or any machine that has the dcos CLI installed and authenticated) and name it mlbint.json. Paste the following contents in it:
+Create a configuration file on your machine (or any machine that has the DC/OS CLI installed and authenticated) and name it mlbint.json. Paste the following contents in it:
 ``` json
 {
     "marathon-lb": {
@@ -112,10 +113,10 @@ Install marathon-lb with the following command:
 dcos package install --options=mlbint.json marathon-lb --yes
 ```
 
-Open the DC/OS web UI, login with super user account and click on Services / shared / mlbint / Edit / Optional. Click on the URIs field and enter the web server URL/path to the registry.pem file `http://<boot-ip>:8085/registry.pem`. Click on "Deploy Changes".
+Open the DC/OS web UI, login with super user account, and click on Services / shared / mlbint / Edit / Optional. Click on the URIs field and enter the web server URL/path to the registry.pem file `http://<boot-ip>:8085/registry.pem`. Click on "Deploy Changes".
 
 ### Installing Docker registry service
-Before starting the private docker registry service, decide on a private node (`<private-ip>`) to pin the service to. Best practice is to attach external storage to that node and point the registry to it. Popular and decent choice for that is a NFS mount. In our case I've mounted my NFS export to /mnt/nfs/registry.
+Before starting the private docker registry service, decide on a private node (`<private-ip>`) on which to pin the service. Best practice is to attach external storage to that node and point the registry to it. A popular choice for that is a NFS mount. In our case I've mounted my NFS export to `/mnt/nfs/registry`.
 
 Create registry.json with the following contents:
 
@@ -228,9 +229,9 @@ Create registry.json with the following contents:
 }
 ```
 Don't forget to replace `bootstrap-ip` with the IP address of your bootstrap node and `private-ip` with the IP address of the private DC/OS node we are going to pin the docker registry to.
-Th important part of this long JSON file can be found under the `labels` definition. This is how we tell our internal marathon-lb instance to expose the docker registry service and use the specified pem file to secure the communications.
+The important part of this long JSON file can be found under the `labels` definition. This is how we tell our internal marathon-lb instance to expose the docker registry service and use the specified pem file to secure the communications.
 
-Install the private docker registry with the following command:
+Install the private Docker registry with the following command:
 
 ``` bash
 dcos marathon app add registry.json
@@ -246,8 +247,8 @@ sudo docker tag alpine mlbint.shared.marathon.mesos:10050/alpine
 sudo docker push mlbint.shared.marathon.mesos:10050/alpine
 ```
 
-### Bonus 1: using this setup from Jenkins running on DC/OS
-In Part 2 of this blog series we will spin up a Jenkins instance and have it use our set up to build push and pull images from our private repository.
+### Bonus 1: Using this setup from Jenkins running on DC/OS
+In Part 2 of this blog series, we will spin up a Jenkins instance and have it use our set up to build, push, and pull images from our private repository.
 
-### Bonus 2: using Let's Encrypt certificates
-Let's Encrypt issues free TLS certificates with 90 days validity. In Part 3 of this blog series we will see how we can automate this process to keep our private docker repo safe.
+### Bonus 2: Using Let's Encrypt certificates
+Let's Encrypt issues free TLS certificates with 90 days validity. In Part 3 of this blog series, we will see how we can automate this process to keep our private docker repo safe.

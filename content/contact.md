@@ -1,7 +1,7 @@
 +++
 date = "2017-04-24T16:44:40-07:00"
 title = "Contact"
-draft = true
+draft = false
 slug = "contact"
 +++
 
