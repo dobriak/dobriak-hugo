@@ -1,0 +1,18 @@
+languageCode = "en-us"
+contentdir = "content"
+publishdir = "public"
+builddrafts = false
+baseUrl = "https://dobriak.github.io"
+canonifyurls = true
+title = "dobriak::blog"
+author = "Julian Neytchev"
+
+[indexes]
+  category = "categories"
+  tag = "tags"
+
+[params]
+  #search_engine = true
+  google_analytics_id = "UA-97986528-1"
+  #twitter_username = ""
+  #disqus_shortname = ""
