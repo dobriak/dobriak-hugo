@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>dobriak::blog on dobriak::blog </title>
+      <generator uri="https://gohugo.io">Hugo</generator>
+    <link>https://dobriak.github.io/index.xml</link>
+    <language>en-us</language>
+    
+    
+    <updated>Mon, 24 Apr 2017 16:45:12 MST</updated>
+    
+    <item>
+      <title>Secure private Docker registry on DC/OS</title>
+      <link>https://dobriak.github.io/post/docker-registry-marathonlb-dcos/</link>
+      <pubDate>Mon, 24 Apr 2017 16:45:12 MST</pubDate>
+      
+      <guid>https://dobriak.github.io/post/docker-registry-marathonlb-dcos/</guid>
+      <description>This is a short guide on how to set up a private docker registry behind an internal marathon-lb instance all running on DC/OS. Since marathon-lb is a Layer 7 load balancer we will use it to terminate SSL for our private registry and avoid using it in insecure mode. We will use self-signed TLS certificates for that purpose.
+Prerequisites  DC/OS cluster (version 1.8+) running on RHEL 7.2 SSH access to all nodes with root privileges.</description>
+    </item>
+    
+    <item>
+      <title>Contact</title>
+      <link>https://dobriak.github.io/contact/</link>
+      <pubDate>Mon, 24 Apr 2017 16:44:40 MST</pubDate>
+      
+      <guid>https://dobriak.github.io/contact/</guid>
+      <description>If you need to get in touch with me, feel free to do it through LinkedIn or AngelCo</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://dobriak.github.io/about/</link>
+      <pubDate>Mon, 24 Apr 2017 16:44:33 MST</pubDate>
+      
+      <guid>https://dobriak.github.io/about/</guid>
+      <description>Hello, my name is Julian Neytchev, and I have been making sure to turn it off and on again since 1995.
+I spent the first 10 years of my career as a software developer, wrote a lot of code, and filed a lot of TPS reports. I think I still have my red stapler tucked somewhere.
+Then one day in 2010 I got a job offer from the consulting arm of Red Hat looking for someone to work on reference architecture design and development for one of their biggest clients.</description>
+    </item>
+    
+  </channel>
+</rss>
+
