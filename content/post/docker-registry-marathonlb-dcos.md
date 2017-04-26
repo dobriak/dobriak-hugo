@@ -2,7 +2,7 @@
 date = "2017-04-24T16:45:12-07:00"
 title = "Secure private Docker registry on DC/OS"
 author = "Julian Neytchev"
-draft = false
+draft = true
 description = "Short guide on how to set up a private docker registry behind an internal marathon-lb instance all running on DC/OS"
 tags = ["dcos","marathon-lb","docker","registry","ssl","tls"]
 categories = ["distributed-computing"]
@@ -248,7 +248,7 @@ sudo docker push mlbint.shared.marathon.mesos:10050/alpine
 ```
 
 ### Bonus 1: Using this setup from Jenkins running on DC/OS
-In Part 2 of this blog series, we will spin up a Jenkins instance and have it use our set up to build, push, and pull images from our private repository.
+In [Part 2]({{< relref "jenkins-marathonlb-dcos.md" >}}) of this blog series, we will spin up a Jenkins instance and have it use our set up to build, push, and pull images from our private registry.
 
 ### Bonus 2: Using Let's Encrypt certificates
 Let's Encrypt issues free TLS certificates with 90 days validity. In Part 3 of this blog series, we will see how we can automate this process to keep our private docker repo safe.
