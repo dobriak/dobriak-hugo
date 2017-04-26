@@ -2,7 +2,7 @@
 date = "2017-04-24T16:45:12-07:00"
 title = "Secure private Docker registry on DC/OS"
 author = "Julian Neytchev"
-draft = true
+draft = false
 description = "Short guide on how to set up a private docker registry behind an internal marathon-lb instance all running on DC/OS"
 tags = ["dcos","marathon-lb","docker","registry","ssl","tls"]
 categories = ["distributed-computing"]
@@ -10,10 +10,13 @@ categories = ["distributed-computing"]
 
 This is a short guide on how to set up a private docker registry behind an internal marathon-lb instance all running on DC/OS. Since marathon-lb is a Layer 7 load balancer we will use it to terminate SSL for our private registry and avoid using it in insecure mode. We will use self-signed TLS certificates for that purpose.
 
+<!--more-->
+
 ### Prerequisites
 * DC/OS cluster (version 1.8+) running on RHEL 7.2
 * SSH access to all nodes with root privileges.
 * DC/OS super user account.
+* DC/OS CLI installed on your local machine and authenticated against the cluster.
 
 ### Planning
 + We want to offer private docker registry to all users of our DC/OS cluster. 
@@ -113,7 +116,11 @@ Install marathon-lb with the following command:
 dcos package install --options=mlbint.json marathon-lb --yes
 ```
 
-Open the DC/OS web UI, login with super user account, and click on Services / shared / mlbint / Edit / Optional. Click on the URIs field and enter the web server URL/path to the registry.pem file `http://<boot-ip>:8085/registry.pem`. Click on "Deploy Changes".
+Open the DC/OS web UI, login with super user account, and click on Services / shared / mlbint / Edit / Optional. Click on the URIs field and enter the web server URL/path to the registry.pem file `http://<bootstrap-ip>:8085/registry.pem`. 
+
+![MlbConfig1](/images/mlbint1c.png)
+
+Click on **"Deploy Changes"**.
 
 ### Installing Docker registry service
 Before starting the private docker registry service, decide on a private node (`<private-ip>`) on which to pin the service. Best practice is to attach external storage to that node and point the registry to it. A popular choice for that is a NFS mount. In our case I've mounted my NFS export to `/mnt/nfs/registry`.
