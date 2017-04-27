@@ -1,6 +1,6 @@
 +++
 date = "2017-04-25T22:05:07-07:00"
-title = "Using Jenkins with a private docker registry on DC/OS"
+title = "Using Jenkins with a private Docker registry on DC/OS"
 author = "Julian Neytchev"
 draft = false
 description = "Using Jenkins with private Docker registry running on DC/OS"
@@ -16,6 +16,7 @@ For reference, Part 1 can be found here: [Secure private Docker registry on DC/O
 
 
 ### Prerequisites
+
 * DC/OS cluster (version 1.8+) running on RHEL 7.2
 * SSH access to all nodes with root privileges.
 * DC/OS super user account.
@@ -24,14 +25,16 @@ For reference, Part 1 can be found here: [Secure private Docker registry on DC/O
 
 ### Planning
 In this article I am planning to outline how to:
-+ start a Jenkins instance on DC/OS and configure it to use our private docker registry to pull and push images.
-+ introduce the registry TLS key to the base Jenkins slave image so we can sign our push and pull operations.
-+ configure a sample Jenkins build job to illustrate the set up and usage of the above.
-+ make use of the internal Docker registry available through our internal marathon-lb instance at `mlbint.shared.marathon.mesos:10050`.
+
+* start a Jenkins instance on DC/OS and configure it to use our private docker registry to pull and push images.
+* introduce the registry TLS key to the base Jenkins slave image so we can sign our push and pull operations.
+* configure a sample Jenkins build job to illustrate the set up and usage of the above.
+* make use of the internal Docker registry available through our internal marathon-lb instance at `mlbint.shared.marathon.mesos:10050`.
 
 ### Start Jenkins
 For any stateful service such as Jenkins, it is always a good idea to figure out where to place your storage beforehand.
-In my case, I have NFS mounts on all my private nodes in /mnt/nfs/jenkins. This way, I would not have to worry what may happen if the Jenkins process dies or gets relocated to a different node.
+
+In my case, I have NFS mounts on all my private nodes in /mnt/nfs/jenkins. This way, I will not have to worry what may happen if the Jenkins process dies or gets relocated to a different node.
 So I will tell DC/OS to use that location for my Jenkins instance. From my machine I will issue the following commands:
 
 ```bash
@@ -44,7 +47,7 @@ cat <<EOF >jenkins.json
 EOF
 dcos package install jenkins --options=jenkins.json --yes
 ```
-Jenkins' web UI should be accessible after couple of minutes. You can do that by clicking on the "Open in new window" icon right next to jenkins service listing in DC/OS web UI.
+Jenkins' web UI should be accessible after a couple of minutes. You can do that by clicking on the "Open in new window" icon right next to Jenkins service listing in DC/OS web UI.
 
 ### Override base Jenkins slave images
 The default Jenkins set up on DC/OS contains a "Cloud" Mesos configuration. As a result, Jenkins is working directly with the underlying Mesos kernel to manage a pool of build slaves that will execute the build steps we define in our jobs. 
@@ -56,7 +59,7 @@ If we try to pull from or push an image to the private registry our build job wi
 
 #### Solution
 We will introduce our TLS certificate to the base Docker image used to spin up the build slaves.
-Said image is made available on DockerHub as `mesosphere/jenkins-dind` and can easily be altered and then used in place of the original in our build jobs. It is based on Alpine Linux and thus it is super light weight, has a package management we can leverage, and is very easy to work with.
+Said image is made available on DockerHub as `mesosphere/jenkins-dind` and can easily be altered and then used in place of the original in our build jobs. It is based on Alpine Linux and thus, it is super light weight, has a package management we can leverage, and is very easy to work with.
 So our plan of action is to:
  
 1. create a Dockerfile that inherits from the latest release of the image (`0.5.0-alpine` as of this blog entry)
@@ -64,7 +67,8 @@ So our plan of action is to:
 1. push the resulting Docker image to our private registry so it can be used by Jenkins to instantiate build slaves
 1. configure Jenkins Cloud Set up to use that new image
 
-SSH into any private node and run the following script to accomplish steps 1 to 3:
+SSH into any private DC/OS node and run the following script to accomplish steps 1 to 3:
+
 ``` bash
 #!/bin/bash
 BOOT_WEB_URL="http://<bootstrap-ip>:8085"
@@ -102,7 +106,7 @@ In this screen shot I have clicked on the **"Add"** button and altered most of t
 
 ![SlaveConfig1](/images/slave1c.png)
 
-We are not done yet. Click on the **"Advanced..."** button to configure the Docker Containerizer with all the specific details needed to pull our modified base image. The **"Docker Image"** box is too small to show the complete address, but I can imagine you already have figured out what the entry is going to look like: `mlbint.shared.marathon.mesos:10050/jenkins-dind:0.5.0-alpine-mlb`
+We are not done yet. Click on the **"Advanced..."** button to configure the Docker Containerizer with all the specific details needed to pull our modified base image. The **"Docker Image"** box is too small to show the complete address, but I can imagine you have already have figured out what the entry is going to look like: `mlbint.shared.marathon.mesos:10050/jenkins-dind:0.5.0-alpine-mlb`
 
 ![SlaveConfig2](/images/slave2c.png)
 
@@ -111,11 +115,11 @@ Do not forget to click on the **"Save"** button at the very bottom of the page.
 ### Jenkins job to illustrate the use case
 Now let's see this new base image in action.
 
-In the Jenkins web UI, click on **"New Item"**, fill out an item name of your choosing, then click on **"Freestyle project"** and the on the **"OK"** button at the bottom of the screen.
+In the Jenkins web UI, click on **"New Item"**, fill out an item name of your choosing, then click on **"Freestyle project"** and then on the **"OK"** button at the bottom of the screen.
 
 In the job configuration dialog, check the **"Restrict where this project can be run"** box and type the label you picked for your base image. In my example I entered *"borg"*, so this is what I am going to use here too.
 
-Under **"Source Code Management"**, click on the **"Git"** radio button and enter the following **Repository URL**: `https://github.com/mhausenblas/cicd-demo.git`. This is a simple CI/CD demo repository that contains a Dockerfile we are going to target for a build, then push to our private Docker registry.
+Under **"Source Code Management"**, click on the **"Git"** radio button and enter the following **Repository URL**: `https://github.com/mhausenblas/cicd-demo.git`. This is a simple CI/CD demo repository that contains a Dockerfile we are going to target for a build then push to our private Docker registry.
 
 Under **"Build"**, click on the **"Add build step"** drop down menu and select **"Execute shell"**. Paste the following code in the **"Command"** text box that will show up:
 
@@ -126,7 +130,7 @@ docker push $IMAGE_NAME
 ```
 Click on the **"Save"** button.
 
-You should now be able to run the build job that will effectively build a Docker image out of the contents of the Dockerfile from the [mhausenblas/cicd-demo](https://github.com/mhausenblas/cicd-demo "mhausenblas/cicd-demo repository") github repository, then push it to our private docker registry. Be patient, as the first spin up of the new build slave will likely take a few minutes.
+You should now be able to run the build job that will effectively build a Docker image out of the contents of the Dockerfile from the [mhausenblas/cicd-demo](https://github.com/mhausenblas/cicd-demo "mhausenblas/cicd-demo repository") github repository then push it to our private docker registry. Be patient, as the first spin up of the new build slave will likely take a few minutes.
 
 
 
