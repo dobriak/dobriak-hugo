@@ -36,7 +36,7 @@ EC2 instance size-wise, please consider the table below.
 | Private | 1 m3.2xlarge | 3 m3.2xlarge | at least 5 r3.8xlarge
 | Public | 1 m3.xlarge | 1 m3.xlarge | 2 r3.xlarge
 
-Either of the above combinations will work for our purpose. Pick a smaller one if you have budgeting concerns.
+Any of the above combinations will work for our purpose. Pick a smaller one if you have budgeting concerns.
 
 Spin up all instances in EC2, making sure you configure the following:
 
@@ -76,7 +76,7 @@ AWSNODES="${AWSNODESB} ${AWSNODESM} ${AWSNODESPUB} ${AWSNODESPRIV}"
 + B - bootstrap node
 + M - master node(s) 
 + PRIV - private node(s)
-+ PUB - public node(s).
++ PUB - public self.homelab node(s).
 
 
 ### DC/OS Installation
@@ -149,7 +149,7 @@ sudo systemctl enable docker
 In similar fashion, here are the prerequisites for our bootstrap node:
 
 + IP detection script - this script needs to be able to produce the IP (EC2 private) address.
-+ gencong/config.yaml - this is the most important part of the advanced installation. Many of the settings in here once deployed, can not be changed without upgrade or even re-deployment. Since we are doing this the opinionated way, I will introduce a general case, easy to tweak starting point that will be a fine choice for 2/3 of all use cases.
++ genconf/config.yaml - this is the most important part of the advanced installation. Many of the settings in here once deployed, can not be changed without upgrade or even re-deployment. Since we are doing this the opinionated way, I will introduce a general case, easy to tweak starting point that will be a fine choice for 2/3 of all use cases.
 
 `bootstrap.sh`
 ``` bash
