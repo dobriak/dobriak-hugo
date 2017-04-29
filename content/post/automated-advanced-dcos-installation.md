@@ -96,7 +96,7 @@ Consult the [documentation](https://docs.mesosphere.com/1.8/administration/insta
 For brevity, I am going to list the ones we are interested in here:
 
 + firewalld disabled.
-+ Docker version 1.9.x to 1.11.x. This is important, DC/OS version 1.8.x will work **only** with those version of the Docker engine.
++ Docker version 1.9.x to 1.11.x. This is important, DC/OS version 1.8.x will work **only** with those versions of the Docker engine.
 + OverlayFS storage driver.
 + Password-less sudo enabled
 + SELinux in Permissive or Disabled mode
