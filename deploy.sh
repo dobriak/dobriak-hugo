@@ -7,23 +7,21 @@ hugo --theme=hugo-theme-pixyll
 
 if [ ! -d ../dobriak.github.io ]; then
   pushd ../
-  git clone git@github.com:dobriak/dobriak.github.io.git
+    git clone git@github.com:dobriak/dobriak.github.io.git
   popd
 fi
 
-rm -rf ../dobriak.github.io/*
-cp -r public/* ../dobriak.github.io
+# Operate on the github.io level repo
 pushd ../dobriak.github.io
-# Add changes to git.
-git add .
-# Commit changes.
-msg="rebuilding site `date`"
-if [ $# -eq 1 ]
-  then msg="$1"
-fi
-git commit -am "$msg"
-# Push source and build repos.
-git push origin master
-# Come Back
+  git pull origin
+  rm -rf *
+  cp -r ../dobriak-hugo/public/* ./
+  git add .
+  msg="rebuilding site `date`"
+  if [ $# -eq 1 ]
+    then msg="$1"
+  fi
+  git commit -am "$msg"
+  git push origin master
 popd
 echo "Done"
