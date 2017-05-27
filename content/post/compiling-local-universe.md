@@ -3,7 +3,7 @@ author = "Julian Neytchev"
 categories = ["automation"]
 date = "2017-05-27T00:51:14-07:00"
 description = ""
-draft = true
+draft = false
 tags = ["dcos","universe","local","air-gapped","dialog","tui"]
 title = "Compiling Local DC/OS Universe"
 +++
@@ -12,7 +12,7 @@ DC/OS offers its users the ability to install various frameworks with a single c
 
 Many Mesosphere clients run their DC/OS clusters in air-gapped environments with no access to the internet, thus not allowing for said one click installation of framework packages.
 
-You can easily solve this problem if your DC/OS cluster is running in such a restricted envrionment.
+You can easily solve this problem if your DC/OS cluster is running in such a restricted environment.
 
 <!--more-->
 
