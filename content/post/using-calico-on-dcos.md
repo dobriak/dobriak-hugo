@@ -19,7 +19,7 @@ DC/OS 1.9 supports 2 ways of running your containers:
 
 Our interest is with UCR and its ability to work with the CNI ([Container Network Interface][4]) open container networking standard.
 
-### Prerquisites
+### Prerequisites
 
 * Running DC/OS cluster 1.9 with at least 3 private nodes. Either OSS or EE version will work.
 * SSH access to all nodes in your cluster
@@ -103,9 +103,9 @@ We can tell Marathon to attach our containers to the "calico" network by specify
 
 Here ```networkName``` tells Marathon to assign ```USER``` - CNI type of networking to the container and attach it to a network called "calico". 
 
-The IP address will be assigned automatically and the container will be tagged with the key-value pairs inside the ```labels``` section. Those key-value pairs will later come handy when we design our security policy. 
+The IP address will be assigned automatically and the container will be tagged with the key-value pairs inside the ```labels``` section. Those key-value pairs will come in handy later when we design our security policy. 
 
-By default, all containers assigned to the same Calico network will be able to talk to eachother. In practice, this is not secure at all, so we will create a policy that will allow us to split our containers in logical groups with isolation between them.
+By default, all containers assigned to the same Calico network will be able to talk to each other. In practice, this is not secure at all, so we will create a policy that will allow us to split our containers in logical groups with isolation between them.
 
 ### Simple Use Case
 
@@ -117,8 +117,8 @@ Consider the following set up for a simplistic application :
 
 We want to have 2 environments that are completely separate from each other.
 
-* development which exposes the front end to our company-wide LAN
-* production which offers the front end to the Internet
+* **development** which exposes the front end to our company-wide LAN
+* **production** which offers the front end to the Internet
 
 Based on what we learned about attaching containers to Calico, we can spin up the following containers:
 
@@ -353,7 +353,7 @@ Let's first delete the rule in the default profile that allows all containers to
 Successfully replaced 1 'profile' resource(s)
 ```
 
-First lets enable containers in the development group ping each other:
+Next, let's enable containers in the development group ping each other:
 
 * allow-dev-pings.yaml
 
@@ -442,7 +442,7 @@ spec:
   - action: allow
 ```
 
-And, finally, lets allow ingress traffic from your company's LAN to the front end in your development group:
+And finally, lets allow ingress traffic from your company's LAN to the front end in your development group:
 
 * allow-dev-lan-frontend.yaml
 
