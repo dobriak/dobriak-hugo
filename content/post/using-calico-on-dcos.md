@@ -1,7 +1,7 @@
 +++
 author = "Julian Neytchev"
 date = "2017-07-18T22:00:33-07:00"
-draft = true
+draft = false
 categories = ["networking"]
 tags = ["dcos","sdn","ucr","cni"]
 title = "IP per Container with Calico CNI on DC/OS"
