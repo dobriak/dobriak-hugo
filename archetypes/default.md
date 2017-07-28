@@ -1,7 +1,9 @@
 +++
+date = {{ .Date }}
+title = "{{ replace .TranslationBaseName "-" " " | title }}"
 author = "Julian Neytchev"
-description = ""
+draft = true
+description = "{{ replace .TranslationBaseName "-" " " | title }}"
 tags = []
 categories = []
-draft = true
 +++
