@@ -197,7 +197,7 @@ Commands:
 
 In addition, you can go to the DC/OS UI to validate that the Cassandra service is running and healthy.
 
-## Perform CRUD operations
+### Perform CRUD operations
 
 Retrieve the connection information:
 
@@ -291,7 +291,7 @@ cqlsh> SELECT * FROM demo.map;
 (2 rows)
 ```
 
-## Uninstall
+### Uninstall
 
 To uninstall Cassandra:
 
@@ -305,7 +305,7 @@ Use the [framework cleaner](https://docs.mesosphere.com/1.9/usage/managing-servi
 - `framework-principal` is `cassandra-principal`
 - `zk_path` is `dcos-service-cassandra`
 
-## Further resources
+### Further resources
 
 1. [DC/OS Cassandra Official Documentation](https://docs.mesosphere.com/1.9/usage/services/cassandra/)
 1. [DataStax Cassandra Documentation](http://docs.datastax.com)
