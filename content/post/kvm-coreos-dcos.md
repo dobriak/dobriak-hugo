@@ -76,14 +76,14 @@ git checkout https://github.com/dobriak/kvm-coreos-dcos.git
 
 ### Run the installation
 
-```
+``` bash
 sudo ./setup.sh 
 ./dcos_parallel_install.sh
 ```
 
 To clean up everything created by the above scripts, just re-run setup with a clean as the only parameter:
 
-```
+``` bash
 sudo ./setup.sh clean
 ```
 
@@ -94,33 +94,4 @@ You should be able to access the [DC/OS UI](http://192.168.1.222) at ```http://1
 * [Advanced DC/OS Installer](https://docs.mesosphere.com/1.10/installing/custom/advanced/)
 
 * [Running CoreOS Container Linux on libvirt](https://coreos.com/os/docs/latest/booting-with-libvirt.html)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
