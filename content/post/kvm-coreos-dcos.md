@@ -2,7 +2,7 @@
 date = 2017-10-28T13:29:29-07:00
 title = "DC/OS on KVM CoreOS VMs"
 author = "Julian Neytchev"
-draft = true
+draft = false
 description = "Automating installation of DC/OS on KVM CoreOS VMs"
 tags = ["dcos","coreos","kvm","libvirt","qemu","scripting","parallel"]
 categories = ["distributed-computing","devops","automation"]
