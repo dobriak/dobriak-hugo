@@ -20,8 +20,20 @@ Meanwhile, I am going to try to make use of a relatively old NUC with i5 process
 * Box with at least 16GB of memory you can SSH into and manipulate
 * Wired connection to the internet. Wireless would be much harder to set up.
 * Latest Fedora Server, of course anything else from the RHEL family would work, or Debian / Ubuntu Server (if you want to adjust the commands from dnf to apt)
-* Latest KVM software - ```sudo dnf install -y @virtualization ; sudo systemctl enable libvirtd ; sudo systemctl start libvirtd```
-* Tmux, sshpass, git ```sudo dnf install -y tmux sshpass git```
+* Latest KVM software
+
+``` bash
+sudo dnf install -y @virtualization
+sudo systemctl enable libvirtd
+sudo systemctl start libvirtd
+```
+
+* Tmux, sshpass, git
+
+``` bash
+sudo dnf install -y tmux sshpass git
+```
+
 * Make sure you have public and private keys in your ```~/.ssh/``` directory. If you do not, generate them with ```ssh-keygen```.
 
 ### Networking setup
