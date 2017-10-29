@@ -28,10 +28,10 @@ sudo systemctl enable libvirtd
 sudo systemctl start libvirtd
 ```
 
-* Tmux, sshpass, git
+* Tmux, git
 
 ``` bash
-sudo dnf install -y tmux sshpass git
+sudo dnf install -y tmux git
 ```
 
 * Make sure you have public and private keys in your ```~/.ssh/``` directory. If you do not, generate them with ```ssh-keygen```.
@@ -66,7 +66,7 @@ git checkout https://github.com/dobriak/kvm-coreos-dcos.git
 ### Explanation of ```setup.sh```
 * Download the correct CoreOS version - as of the current DC/OS version (1.10.0) the recommended CoreOS version is 1235.9.0 and we do that in the ```initialSetup()``` [function](https://github.com/dobriak/kvm-coreos-dcos/blob/a19e10fc6162c2ce9f8eefa417e3b66bfbdc8ddb/setup.sh#L9)
 
-* Edit ```setup.sh``` and set the ```USER``` variable to your user (or user whose public and private keys will be used to authenticate against your CoreOS VMs)
+* Edit ```cluster.conf``` and set the ```USER``` variable to your user (or user whose public and private keys will be used to authenticate against your CoreOS VMs)
 
 * The following VMs will be created:
     * **b** - bootstrap, used only to set up the cluster. Can later be removed if you are not planning to run any upgrades
@@ -83,24 +83,21 @@ git checkout https://github.com/dobriak/kvm-coreos-dcos.git
 
 * If you need to change any IP addressing, please make sure to also update cluster.conf, as this is what all installation scripts use to connect to the CoreOS VMs
 
-* Make sure to echo your user's password to a file: ```echo "<my password here>" > pass.txt``` this is used by sshpass to automate ssh key exchange with your VMs
-
 
 ### Run the installation
 
 ``` bash
-sudo ./setup.sh 
-./dcos_parallel_install.sh
+sudo ./setup.sh && sleep 3m && ./dcos_parallel_install.sh
 ```
+The installation will take a few minutes. All logs of the installation can be found under ```/tmp/tmp.${RANDOM}.log.${PID}```.
+
+That is it, you are done! You should be able to access the [DC/OS UI](http://192.168.1.222) at ```http://192.168.1.222``` (or whichever IP you have decided to use)
 
 To clean up everything created by the above scripts, just re-run setup with a clean as the only parameter:
 
 ``` bash
 sudo ./setup.sh clean
 ```
-
-You are done!
-You should be able to access the [DC/OS UI](http://192.168.1.222) at ```http://192.168.1.222``` (or whichever IP you have decided to use)
 
 ### References
 * [Advanced DC/OS Installer](https://docs.mesosphere.com/1.10/installing/custom/advanced/)
