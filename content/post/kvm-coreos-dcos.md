@@ -16,7 +16,7 @@ I have been toying with the idea of setting up a home lab server where I can fre
 
 Meanwhile, I am going to try to make use of a relatively old NUC with i5 processor and 16GB of memory and see if I can experiment with DC/OS (on the cheap). On it, I have a fresh installation of headless Fedora Server with the KVM group installed. Everything is going to be automated so there is no need of a graphical server. I will run all steps of the set up from that machine.
 
-### Prerquisites
+### Prerequisites
 * Box with at least 16GB of memory you can SSH into and manipulate
 * Wired connection to the internet. Wireless would be much harder to set up.
 * Latest Fedora Server, of course anything else from the RHEL family would work, or Debian / Ubuntu Server (if you want to adjust the commands from dnf to apt)
@@ -74,7 +74,7 @@ git checkout https://github.com/dobriak/kvm-coreos-dcos.git
     * **a1** and **a2** - agent nodes 1 and 2, this is where our services will be running
     * **p1** - public node 1, this is our "external" facing node for anything that you may want to expose outside of your cluster
 
-* All network MAC and IP addresses are hardcoded in an [array](https://github.com/dobriak/kvm-coreos-dcos/blob/a19e10fc6162c2ce9f8eefa417e3b66bfbdc8ddb/setup.sh#L161) . so if any of those IPs collide with yours, feel free to change them (don't forget to do so in the cluster.conf file too).
+* All network MAC and IP addresses are hardcoded in an [array](https://github.com/dobriak/kvm-coreos-dcos/blob/a19e10fc6162c2ce9f8eefa417e3b66bfbdc8ddb/setup.sh#L161), so if any of those IPs collide with yours, feel free to change them (don't forget to do so in the cluster.conf file too).
 
 * Same with the directories under /var/lib/libvirt - standard naming scheme is followed, but you have a different set up, feel free to edit the ```domain_dir``` and ```image_dir``` variables in ```setup.sh```.
 
