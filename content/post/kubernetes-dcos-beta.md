@@ -9,7 +9,7 @@ categories = ["services","orchestration"]
 +++
 
 
-My [employer](https://mesosphere.com/) recently [announced](https://mesosphere.com/blog/dcos-1_10-kubernetes/) first class support for running Kubernetes on top of DC/OS version 1.10. In this post we will examine how you can get started with using Kubernetes and we will deploy a sample application.
+My [employer](https://mesosphere.com/) recently [announced](https://mesosphere.com/blog/dcos-1_10-kubernetes/) first class support for running Kubernetes on top of DC/OS version 1.10. In this post we will examine how to get started with using Kubernetes on DC/OS.
 
 <!--more-->
 
