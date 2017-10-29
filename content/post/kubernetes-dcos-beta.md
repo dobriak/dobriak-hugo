@@ -18,7 +18,7 @@ My [employer](https://mesosphere.com/) recently [announced](https://mesosphere.c
 * DC/OS version 1.10, either OS or EE edition
 * At least 3 private nodes with minimum of 6 CPU 6GB memory and 700MB disk
 * Machine with the DC/OS CLI installed and connected to your cluster
-* kubectl installed preferrable on the same machine as the DC/OS CLI
+* kubectl installed preferably on the same machine as the DC/OS CLI
 
 
 ### Install from the CLI
