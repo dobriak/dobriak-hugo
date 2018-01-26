@@ -21,7 +21,7 @@ The proposed solution is to install and configure [OpenVPN](https://openvpn.net/
 Please note that this is one way of solving the above problem. This post is for pure hobby or academic purposes and you should definitely not use it in a production environment.
 
 ### Prerequisites
-- DC/OS cluster with at least 1 public node accessible over the internet. This article was written using version 1.10 of DC/OS, 1.8 and 1.9 are know to also [work](https://github.com/dcos/examples/tree/master/openvpn).
+- DC/OS cluster with at least 1 public node accessible over the internet. This article was written using version 1.10 of DC/OS, 1.8 and 1.9 are known to also [work](https://github.com/dcos/examples/tree/master/openvpn).
 - [DC/OS CLI](https://dcos.io/docs/1.10/usage/cli/install/) installed and authenticated against your cluster.
 - DC/OS cluster account with super user privileges.
 - Your client machine / laptop should have access to the public IP address of your public node. The OpenVPN connection will be offered on port 1194/UDP so you should make sure that this port is not closed to the outside world in your environment.
