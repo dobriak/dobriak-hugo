@@ -19,7 +19,7 @@ There are many possible configuration combinations, so here I will present the o
 
 Let's assume we have a team in our organization (let's call it **coolteam**) that would like to use Kafka for their applications and that they would like their own instance.
 
-Following steps will be taken to achieve our goal:
+The following steps will be taken to achieve our goal:
 
 * Provision a service account that can only interact with Kafka.
 * Create namespace for our team and establish an easy way of adding team members to it.
