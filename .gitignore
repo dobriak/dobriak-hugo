@@ -1,2 +1,3 @@
 .git*
 public/
+.DS_Store
