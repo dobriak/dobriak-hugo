@@ -8,7 +8,9 @@ tags = ["dcos","service-account","restricted-environment","JWT","openssl"]
 categories = ["automation","security"]
 +++
 
-We are so used to having handy little pieces of software that help us do our jobs better. If you too work in the DevOps world and write automation for infrastructure or software (or pretty much anything else) you would know what I mean. Take `jq` for an example: can you imagine writing any sort of shell script that interacts with any JSON producing API and _NOT_ use good ole trustworthy `jq`?
+We are so used to having handy little pieces of software that help us do our jobs better. If you too work in the DevOps world and write automation for infrastructure or software (or pretty much anything else) you would know what I mean. Take `jq` for an example: can you imagine writing any sort of shell script that interacts with any JSON producing API and _NOT_ using good ole trustworthy `jq`?
+
+<!--more-->
 
 Now, imagine you are writing such automation script for BigCompany &trade; and your environment is air gapped and you can not install `jq` or `python` or `nifty-help-tool`.
 
@@ -17,8 +19,6 @@ _What do you do?_
 Well you revert to basics.
 
 Had to solve exactly that kind of problem for a client, so I though I should jot down my notes in hopes that might be helpful to someone else down the line.
-
-<!--more-->
 
 ### The Problem
 
