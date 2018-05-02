@@ -8,7 +8,7 @@ tags = ["dcos","service-account","restricted-environment","JWT","openssl"]
 categories = ["automation","security"]
 +++
 
-We are so used to having handy little pieces of software that help us do our jobs better. If you too work in the DevOps world and write automation for infrastructure or software (or pretty much anything else) you would know what I mean. Take `jq` for an example: can you imagine writing any sort of shell script that interacts with any JSON producing API and _NOT_ using good ole trustworthy `jq`?
+We are so used to having handy little pieces of software that help us do our jobs better. If you too work in the DevOps world and write automation for infrastructure or software (or pretty much anything else) you know what I mean. Take `jq` for an example: can you imagine writing any sort of shell script that interacts with any JSON producing API and _NOT_ using good ole trustworthy `jq`?
 
 <!--more-->
 
@@ -18,7 +18,7 @@ _What do you do?_
 
 Well you revert to basics.
 
-Had to solve exactly that kind of problem for a client, so I though I should jot down my notes in hopes that might be helpful to someone else down the line.
+Had to solve exactly that kind of problem for a client, so I thought I should jot down my notes in hopes that might be helpful to someone else down the line.
 
 ### The Problem
 
@@ -60,7 +60,7 @@ echo '{"id":"/dev"}' > dev-group.json
 dcos marathon group add < dev-group.json
 ```
 
-Create service account, keys
+Create service account and a key pair:
 ```bash
 SERVICE_PRINCIPAL="bamboo"
 NAMESPACE="dev"
@@ -139,7 +139,7 @@ echo "Done."
 
 Please note that all authentication tokens have a lifespan of 5 days. When the token expires API calls will return a `401 Unauthorized` error, and you can programmatically catch it and deal with it, for example you can just re-run the script to get a fresh token.
 
-Now, using the auth token stored in `token` you can interact with DC/OS services and APIs as allowed by the service account permissions. In our case we assigned permissions that should let us spin up apps in Marathon's `/dev` service group, so to test our set up we can do something like:
+Now, using the auth token stored in `token` you can interact with DC/OS services and APIs as allowed by the service account permissions. In our case we assigned permissions that should let us spin up apps in Marathon's `/dev` service group, to test our set up we can do something like:
 
 ```bash
 echo '{
