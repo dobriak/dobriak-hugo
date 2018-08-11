@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/jneytchev
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://dobriak.github.io
+  * I am jneytchev (https://keybase.io/jneytchev) on keybase.
+  * I have a public key ASD7jxM9-E_oMpDj2_GEFgCfk0q_-PdxQAiKyIbzxnWWVwo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120fb8f133df84fe83290e3dbf18416009f934abff8f77140088ac886f3c67596570a",
+      "host": "keybase.io",
+      "kid": "0120fb8f133df84fe83290e3dbf18416009f934abff8f77140088ac886f3c67596570a",
+      "uid": "4cbc7654626c423359f3b57c8be50f19",
+      "username": "jneytchev"
+    },
+    "merkle_root": {
+      "ctime": 1533997997,
+      "hash": "8b0f057357ad1bb6395a228d724ab3f3c9794b0718022996326db7c4f3cd1f6bd98633cf226f3f461aa6fbdb51fcb279282af451cd594e4a6fc1287a109daffd",
+      "hash_meta": "468df244ccb00322bfb6835740ac81363dd4351d2d76c6d97349f40d1deaf3e6",
+      "seqno": 3442189
+    },
+    "service": {
+      "entropy": "x7E2K54oMztohGwHnGDgvppo",
+      "hostname": "dobriak.github.io",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "2.5.0"
+  },
+  "ctime": 1533998056,
+  "expire_in": 504576000,
+  "prev": "f87d318ef082031610f742d5e4a9c63251ec14513c1597da6c11dff09fdf4a32",
+  "seqno": 7,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEg+48TPfhP6DKQ49vxhBYAn5NKv/j3cUAIisiG88Z1llcKp3BheWxvYWTESpcCB8Qg+H0xjvCCAxYQ90LV5KnGMlHsFFE8FZfabBHf8J/fSjLEID8/dGxXiArR5bkpfFX+POcAmUMDAbDWLMeiSuVGm2UdAgHCo3NpZ8RAIF+9RFtqOhUK6CikpjNjlBgQ3l7h0auA+3N53oz9ET6GH/G+D8J6oOzo830EBdB8pvb570ptZs3U2frYVLO3CqhzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIGaD+prg3clr/DPsQtmsJX3KBgxicleU4/SbiLLrn9fvo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/jneytchev
+
+==================================================================
